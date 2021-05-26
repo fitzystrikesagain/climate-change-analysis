@@ -36,11 +36,11 @@ EOF
 # Create an admin user
 echo_step "1" "Starting" "Setting up admin user ( admin / admin )"
 superset fab create-admin \
-              --username admin \
-              --firstname Superset \
-              --lastname Admin \
-              --email admin@superset.com \
-              --password admin
+              --username "$SUPERSET_USERNAME" \
+              --firstname "$SUPERSET_FIRSTNAME" \
+              --lastname "$SUPERSET_LASTNAME" \
+              --email "$SUPERSET_EMAIL" \
+              --password "$SUPERSET_PASSWORD"
 echo_step "1" "Complete" "Setting up admin user"
 
 # Initialize the database

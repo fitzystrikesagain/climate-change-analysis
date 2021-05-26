@@ -59,7 +59,7 @@ services:
   superset:
     env_file: docker/.env
     image: kbastani2/noaa-pinot-superset-app
-    container_name: superset_app_noaa
+    container_name: ${SUPERSET_APP_NAME}
     command: ["flask", "run", "-p", "8088", "--with-threads", "--reload", "--debugger", "--host=0.0.0.0"]
     restart: unless-stopped
     ports:
@@ -70,8 +70,10 @@ services:
       - PinotNetwork
 
   pinot:
-    image: apachepinot/pinot:0.5.0-SNAPSHOT-c223dfcfb-20200821
-    container_name: pinot_app_noaa
+    env_file:
+      - docker/.env
+    image: apachepinot/pinot:latest
+    container_name: ${PINOT_APP_NAME}
     command: ["QuickStart", "-type", "BATCH"]
     restart: unless-stopped
     ports:
@@ -84,7 +86,6 @@ services:
 
 networks:
   PinotNetwork:
-    external:
       name: PinotNetwork
 
 volumes:
